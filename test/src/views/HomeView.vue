@@ -12,6 +12,23 @@
     <el-row>
       <el-button type="danger" @click="resourceError">加载资源报错</el-button>
     </el-row>
+    <el-row>
+      <el-upload
+        class="upload-demo"
+        action="https://dtclient-api-qa.xingzheai.cn/api/v3/trial/upload_file"
+        accept="image/*"
+        :data="updata"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
+        :before-remove="beforeRemove"
+        multiple
+        :on-exceed="handleExceed"
+        :file-list="fileList"
+      >
+        <el-button size="small" type="primary">点击上传</el-button>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+      </el-upload>
+    </el-row>
     <p class="error">报错统计</p>
     <el-table :data="tableData" style="width: 100%">
       <el-table-column type="index" width="50"></el-table-column>
@@ -103,6 +120,8 @@ export default {
       dialogTitle: '',
       activities: [],
       tableData: [],
+      fileList: [],
+      updata: { file_type: 'image' },
     };
   },
   created() {
@@ -250,6 +269,22 @@ export default {
       };
       ajax.send();
       ajax.addEventListener('loadend', () => {});
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(
+        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
+          files.length + fileList.length
+        } 个文件`
+      );
+    },
+    beforeRemove(file) {
+      return this.$confirm(`确定移除 ${file.name}？`);
     },
   },
 };
