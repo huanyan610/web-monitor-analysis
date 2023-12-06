@@ -27,13 +27,13 @@ function output(path) {
         {
           file: `./packages/${path}/dist/index.js`,
           format: 'umd',
-          name: 'web-see',
+          name: 'web-monitor-analysis',
           sourcemap: true,
         },
         {
           file: `./packages/${path}/dist/index.min.js`,
           format: 'umd',
-          name: 'web-see',
+          name: 'web-monitor-analysis',
           sourcemap: true,
           plugins: [uglify()],
         },
