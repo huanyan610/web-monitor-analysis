@@ -10,6 +10,9 @@
       <el-button type="warning" @click="fetchError">fetch请求报错</el-button>
     </el-row>
     <el-row>
+      <el-button type="danger" @click="log">自定义上报</el-button>
+    </el-row>
+    <el-row>
       <el-button type="danger" @click="resourceError">加载资源报错</el-button>
     </el-row>
     <el-row>
@@ -110,7 +113,7 @@ import { findCodeBySourceMap } from '../utils/sourcemap';
 import { unzip } from '../utils/recordScreen.js';
 import rrwebPlayer from 'rrweb-player';
 import 'rrweb-player/dist/style.css';
-
+import webSee from '../../../packages/core/src';
 export default {
   name: 'HomeView',
   data() {
@@ -270,12 +273,16 @@ export default {
       ajax.send();
       ajax.addEventListener('loadend', () => {});
     },
+    log() {
+      webSee.log({ message: '自定义log上报', error: 'OK', status: 'OK' });
+    },
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },
     handlePreview(file) {
       console.log(file);
     },
+
     handleExceed(files, fileList) {
       this.$message.warning(
         `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${

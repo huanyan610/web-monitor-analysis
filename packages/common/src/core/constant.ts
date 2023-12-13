@@ -39,6 +39,7 @@ export enum BREADCRUMBTYPES {
 export enum STATUS_CODE {
   ERROR = 'error',
   OK = 'ok',
+  CUSTOM = 'custom',
 }
 
 /**
