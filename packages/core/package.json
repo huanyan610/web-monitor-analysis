@@ -1,6 +1,6 @@
 {
   "name": "@web-monitor-analysis/core",
-  "version": "4.0.2",
+  "version": "1.0.1",
   "description": "",
   "main": "src/index.ts",
   "module": "dist/index.esm.js",
