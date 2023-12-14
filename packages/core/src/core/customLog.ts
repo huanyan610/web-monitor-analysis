@@ -8,21 +8,20 @@ import { isError, getTimestamp, unknownToString } from '@websee/utils';
 export function log({ message = 'customMsg', error = '', type = EVENTTYPES.CUSTOM }: any): void {
   try {
     let errorInfo = {};
-    console.log(error);
     if (isError(error)) {
       const result = ErrorStackParser.parse(!error.target ? error : error.error || error.reason)[0];
       errorInfo = { ...result, line: result.lineNumber, column: result.columnNumber };
     }
     breadcrumb.push({
       type,
-      status: STATUS_CODE.CUSTOM,
+      status: isError(error) ? STATUS_CODE.ERROR : STATUS_CODE.OK,
       category: breadcrumb.getCategory(EVENTTYPES.CUSTOM),
       data: unknownToString(message),
       time: getTimestamp(),
     });
     transportData.send({
       type,
-      status: STATUS_CODE.CUSTOM,
+      status: isError(error) ? STATUS_CODE.ERROR : STATUS_CODE.OK,
       message: unknownToString(message),
       time: getTimestamp(),
       ...errorInfo,
