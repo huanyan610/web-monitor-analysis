@@ -1,5 +1,5 @@
 {
-  "name": "@websee/core",
+  "name": "@web-monitor-analysis/core",
   "version": "4.0.2",
   "description": "",
   "main": "src/index.ts",
